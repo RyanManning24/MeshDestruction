@@ -28,7 +28,14 @@ public class Shoot : MonoBehaviour
         bullet.GetComponent<Rigidbody>().AddForce(mainCamera.transform.forward * bulletForce);
 
         //get what the ball hits
-        
+        /*
+        RaycastHit hit;
+
+        Debug.DrawRay(bullet.transform.position, bullet.transform.forward);
+        if (Physics.Raycast(bullet.transform.position, bullet.transform.forward, out hit))
+        {
+            Debug.Log("Hit");
+        }*/
 
         Destroy(bullet, 3);
     }
