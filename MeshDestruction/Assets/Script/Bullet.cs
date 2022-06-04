@@ -11,6 +11,6 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //apply Destruction
-        voronoiDestruction.Instance.BaseDestruction(other.gameObject);
+        voronoiDestruction.SimpleCut(other.gameObject.transform, other.gameObject.transform.position);
     }
 }
