@@ -30,6 +30,11 @@ public class voronoiDestruction : MonoBehaviour
         //WORK OUT EVERYTHING
     }
 
+    public static void BaseMeshCut(GameObject target)
+    {
+
+    }
+
     public static bool SimpleCut(Transform target, Vector3 pos)
     {
         Vector3 position = new Vector3(pos.x,target.position.y,target.position.z);
