@@ -234,7 +234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isSolid: 1
   _reverseWindTriangles: 0
-  _useGravity: 0
+  _useGravity: 1
   _shareVertices: 0
   _smoothVertices: 0
 --- !u!1 &568603201
@@ -505,7 +505,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.10127985, y: -0, z: -0, w: 0.99485797}
-  m_LocalPosition: {x: 0, y: 4.15, z: -9.78}
+  m_LocalPosition: {x: 1.54, y: 4.15, z: -9.78}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

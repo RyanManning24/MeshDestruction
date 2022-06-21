@@ -26,6 +26,7 @@ public class Shoot : MonoBehaviour
     {
         GameObject bullet = Instantiate(bulletPrefab,mainCamera.transform.position,Quaternion.identity);
         bullet.GetComponent<Rigidbody>().AddForce(mainCamera.transform.forward * bulletForce);
+        bullet.GetComponent<Bullet>().SetIsActive(true);
 
         //get what the ball hits
         /*
