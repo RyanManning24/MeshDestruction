@@ -68,9 +68,10 @@ public class Bullet : MonoBehaviour
             {
                 isActive = false;
 
-                Vector3 planeYZ = new Vector3(0, objectHit.bounds.size.y, objectHit.bounds.size.z);
-
                 Vector3 collisionPoint = collision.contacts[0].point;
+                Vector3 planeYZ = new Vector3(0 , objectHit.bounds.size.y, objectHit.bounds.size.z);
+                //Vector3 hitObjSize = objectHit.bounds.size;
+                //Vector3 planeYZ = hitObjSize - collisionPoint;
 
                 Vector3 vectorA = new Vector3(collisionPoint.x, collisionPoint.y - planeYZ.y, collisionPoint.z);
 
