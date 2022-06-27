@@ -89,9 +89,11 @@ public class Bullet : MonoBehaviour
                 
                 Vector3 transformedNormal = ((Vector3)(collision.gameObject.transform.localToWorldMatrix.transpose * normal)).normalized;
 
+                //Create plane
                 Plane plane = new Plane();
                 plane.SetNormalAndPosition(transformedNormal, planeYZ);
 
+                //check the direction of the plane and make sure its at the correct rotation
                 var direction = Vector3.Dot(Vector3.up, transformedNormal);
                 
                 if (direction < 0)
@@ -99,9 +101,11 @@ public class Bullet : MonoBehaviour
                     plane = plane.flipped;
                 }
 
+                //slice the object
                 GameObject[] slices = Slicer.Slice(plane, collision.gameObject);
                 Destroy(collision.gameObject);
 
+                //apply a force to the object 
                 Rigidbody rigidbody = slices[1].GetComponent<Rigidbody>();
                 Vector3 newNormal = transformedNormal + Vector3.up * _forceAppliedToCut;
                 rigidbody.AddForce(newNormal, ForceMode.Impulse);
