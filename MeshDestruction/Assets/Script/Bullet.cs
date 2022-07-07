@@ -39,9 +39,12 @@ public class Bullet : MonoBehaviour
 
                 Vector3 transformedNormal = ((Vector3)(collision.gameObject.transform.localToWorldMatrix.transpose * normal)).normalized;
 
+                Vector3 transformedStartingPoint = collision.gameObject.transform.InverseTransformPoint(planeYZ);
+
+
 
                 Plane plane = new Plane();
-                plane.SetNormalAndPosition(transformedNormal, planeYZ);
+                plane.SetNormalAndPosition(transformedNormal, transformedStartingPoint);
 
                 var direction = Vector3.Dot(Vector3.up, transformedNormal);
 
@@ -63,6 +66,7 @@ public class Bullet : MonoBehaviour
         }
         else if (!horizontalCut && collision.gameObject.GetComponent<Sliceable>() && isActive)
         {
+            /*TEST
             //apply cutting vertical
             if (collision.gameObject.TryGetComponent<Renderer>(out Renderer objectHit))
             {
@@ -73,7 +77,8 @@ public class Bullet : MonoBehaviour
                 Vector3 planeYZ = new Vector3(0 , objectHit.bounds.size.y, objectHit.bounds.size.z);
                 Vector3 hitObjSize = objectHit.bounds.size;
                 //Vector3 planeYZ = hitObjSize - collisionPoint;
-                
+
+                //hitObjSize.x -
                 //calculate the two points of the plane that we will cut the object on
                 Vector3 vectorA = new Vector3(hitObjSize.x - collisionPoint.x, collisionPoint.y - planeYZ.y,collisionPoint.z);
                 Vector3 vectorB = new Vector3(hitObjSize.x - collisionPoint.x, collisionPoint.y + planeYZ.y,collisionPoint.z);
@@ -86,16 +91,23 @@ public class Bullet : MonoBehaviour
                 //calculate the normal
                 Vector3 normal = Vector3.Cross(side1, side2).normalized;
 
-                
                 Vector3 transformedNormal = ((Vector3)(collision.gameObject.transform.localToWorldMatrix.transpose * normal)).normalized;
 
-                //Create plane
-                Plane plane = new Plane();
-                plane.SetNormalAndPosition(transformedNormal, planeYZ);
+                Vector3 transformedStartingPoint = collision.gameObject.transform.InverseTransformPoint(side1);// planeYZ
+
+                 //Create plane
+                 Plane plane = new Plane();
+                plane.Translate(objectHit.gameObject.transform.position);
+                Debug.Log($"Planes Normal:{transformedNormal}");
+                Debug.Log($"Planes position:{transformedStartingPoint}");
+                //Debug.DrawLine(vectorA, vectorB, Color.black, Mathf.Infinity);
+                //Debug.DrawLine(vectorB, endVector, Color.black, Mathf.Infinity);
+                Debug.DrawLine(side1, side2, Color.black, Mathf.Infinity);
+                plane.SetNormalAndPosition(transformedNormal, transformedStartingPoint);
 
                 //check the direction of the plane and make sure its at the correct rotation
                 var direction = Vector3.Dot(Vector3.up, transformedNormal);
-                
+               
                 if (direction < 0)
                 {
                     plane = plane.flipped;
@@ -106,10 +118,12 @@ public class Bullet : MonoBehaviour
                 Destroy(collision.gameObject);
 
                 //apply a force to the object 
-                Rigidbody rigidbody = slices[1].GetComponent<Rigidbody>();
+                /*Rigidbody rigidbody = slices[1].GetComponent<Rigidbody>();
                 Vector3 newNormal = transformedNormal + Vector3.up * _forceAppliedToCut;
-                rigidbody.AddForce(newNormal, ForceMode.Impulse);
-            }
+                rigidbody.AddForce(newNormal, ForceMode.Impulse);*/
+            }/*
+
+            
         }
 
         /*_triggerExitTipPosition = _tip.transform.position;

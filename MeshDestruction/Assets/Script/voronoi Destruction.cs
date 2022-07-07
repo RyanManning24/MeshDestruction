@@ -35,8 +35,20 @@ public class voronoiDestruction : MonoBehaviour
 
     }
 
+    public static void VoronoiDestruction(GameObject target)
+    {
+        //\[D= \left( {\sum_i^n \left|{a_i - b_i}\right |^p } \right)^{1/p}\]
+        //D = +-triangleX to the power P + same but y all to the power of 1/p Minkowski distance
+        //Manhattan distance is cheaper 
+
+        //get the point of impact
+        //calculate how hard the impact was 
+        //apply destruction using voronoi 
+    }
+
     public static bool SimpleCut(Transform target, Vector3 pos)
     {
+        //Base Destruction TEST THIS 
         Vector3 position = new Vector3(pos.x,target.position.y,target.position.z);
         Vector3 targetScale = target.localScale;
         float distance = Vector3.Distance(target.position, position);
