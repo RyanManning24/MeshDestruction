@@ -8,14 +8,14 @@ public class Bullet : MonoBehaviour
     [SerializeField] private SphereCollider sphereCollider;
     [SerializeField] private float _forceAppliedToCut = 10f;
     [SerializeField] private bool horizontalCut = false;
-
+    [SerializeField] private bool simpleCut = false;
     private bool isActive = false;
 
     private void OnCollisionEnter(Collision collision)
     {
         //doesnt work
         //apply destruction
-        if (horizontalCut && collision.gameObject.GetComponent<Sliceable>() && isActive)
+        if (horizontalCut && collision.gameObject.GetComponent<Sliceable>() && isActive && !simpleCut)
         {
             if (collision.gameObject.TryGetComponent<Renderer>(out Renderer objectHit))
             {
@@ -64,7 +64,7 @@ public class Bullet : MonoBehaviour
             //get impact point
             //create the start and end points 
         }
-        else if (!horizontalCut && collision.gameObject.GetComponent<Sliceable>() && isActive)
+        else if (!horizontalCut && collision.gameObject.GetComponent<Sliceable>() && isActive && !simpleCut)
         {
             /*TEST
             //apply cutting vertical
@@ -121,7 +121,13 @@ public class Bullet : MonoBehaviour
                 /*Rigidbody rigidbody = slices[1].GetComponent<Rigidbody>();
                 Vector3 newNormal = transformedNormal + Vector3.up * _forceAppliedToCut;
                 rigidbody.AddForce(newNormal, ForceMode.Impulse);*/
-            }/*
+        }
+        else if(!horizontalCut && collision.gameObject.GetComponent<Sliceable>() && isActive && simpleCut)
+        {
+            voronoiDestruction.SimpleCut(collision.gameObject.transform, collision.contacts[0].point);
+            isActive = false;
+        }
+        /*
 
             
         }

@@ -148,17 +148,25 @@ public class voronoiDestruction : MonoBehaviour
 
     public static bool SimpleCut(Transform target, Vector3 pos)
     {
-        //Base Destruction TEST THIS 
+        
+        //Base Destruction 
+        //Store objects posistion and scale
         Vector3 position = new Vector3(pos.x,target.position.y,target.position.z);
         Vector3 targetScale = target.localScale;
+
+
         float distance = Vector3.Distance(target.position, position);
         if (distance >= targetScale.x / 2) return false;
 
+        //create the left and right objects position
         Vector3 leftPoint = target.position - Vector3.right * targetScale.x / 2;
         Vector3 rightPoint = target.position + Vector3.right * targetScale.x / 2;
+
+        //store material
         Material mat = target.GetComponent<MeshRenderer>().sharedMaterial;
         Destroy(target.gameObject);
 
+        //Create Right side
         GameObject rightSideObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
         rightSideObj.transform.position = (rightPoint + pos) / 2;
         float rightWidth = Vector3.Distance(position, rightPoint);
@@ -166,6 +174,7 @@ public class voronoiDestruction : MonoBehaviour
         rightSideObj.AddComponent<Rigidbody>().mass = 100f;
         rightSideObj.GetComponent<MeshRenderer>().material = mat;
 
+        //Create Left side
         GameObject leftSideObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
         leftSideObj.transform.position = (leftPoint + position) / 2;
         float leftWidth = Vector3.Distance(position,leftPoint);
