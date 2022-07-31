@@ -273,7 +273,7 @@ MonoBehaviour:
   Polygon: []
   Thickness: 1
   MinBreakArea: 0.01
-  MinImpactToBreak: 50
+  MinImpactToBreak: 1
 --- !u!64 &753422371
 MeshCollider:
   m_ObjectHideFlags: 0
