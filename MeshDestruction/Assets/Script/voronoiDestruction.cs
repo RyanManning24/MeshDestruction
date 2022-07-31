@@ -172,6 +172,7 @@ public class voronoiDestruction : MonoBehaviour
         float rightWidth = Vector3.Distance(position, rightPoint);
         rightSideObj.transform.localScale = new Vector3(rightWidth, targetScale.y, targetScale.z);
         rightSideObj.AddComponent<Rigidbody>().mass = 100f;
+        rightSideObj.AddComponent<Sliceable>();
         rightSideObj.GetComponent<MeshRenderer>().material = mat;
 
         //Create Left side
@@ -180,7 +181,9 @@ public class voronoiDestruction : MonoBehaviour
         float leftWidth = Vector3.Distance(position,leftPoint);
         leftSideObj.transform.localScale = new Vector3(leftWidth, targetScale.y, targetScale.z);
         leftSideObj.AddComponent<Rigidbody>().mass = 100f;
+        leftSideObj.AddComponent<Sliceable>();
         leftSideObj.GetComponent<MeshRenderer>().material = mat;
+        
 
         return true;
     }
