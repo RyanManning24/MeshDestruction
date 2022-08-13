@@ -124,20 +124,24 @@ namespace GK {
 			cmp.tris = null;
 			cmp.verts = null;
 
-			for (int i = 0; i < pts.Count; i++) {
+			for (int i = 0; i < pts.Count; i++) 
+			{
 				result.FirstEdgeBySite.Add(edges.Count);
 
 				var start = i;
 				var end = -1;
 
-				for (int j = i+1; j < pts.Count; j++) {
-					if (pts[i].Point != pts[j].Point) {
+				for (int j = i+1; j < pts.Count; j++) 
+				{
+					if (pts[i].Point != pts[j].Point) 
+					{
 						end = j - 1;
 						break;
 					}
 				}
 
-				if (end == -1) {
+				if (end == -1) 
+				{
 					end = pts.Count - 1;
 				}
 
@@ -147,7 +151,8 @@ namespace GK {
 
 				Debug.Assert(count >= 0);
 
-				for (int ptiCurr = start; ptiCurr <= end; ptiCurr++) {
+				for (int ptiCurr = start; ptiCurr <= end; ptiCurr++)
+				{
 					bool isEdge;
 
 					var ptiNext = ptiCurr + 1;
@@ -164,35 +169,49 @@ namespace GK {
 
 					var v2nan = new Vector2(float.NaN, float.NaN);
 
-					if (count == 0) {
+					if (count == 0) 
+					{
 						isEdge = true;
-					} else if (count == 1) {
+					}
+					else if (count == 1)
+					{
 
 						var cCurr = Geom.TriangleCentroid(verts[tris[tiCurr]], verts[tris[tiCurr+1]], verts[tris[tiCurr+2]]);
 						var cNext = Geom.TriangleCentroid(verts[tris[tiNext]], verts[tris[tiNext+1]], verts[tris[tiNext+2]]);
 
 						isEdge = Geom.ToTheLeft(cCurr, p0, cNext);
-					} else {
+					} 
+					else 
+					{
 						isEdge = !SharesEdge(tris, tiCurr, tiNext);
 					}
 
-					if (isEdge) {
+					if (isEdge) 
+					{
 						Vector2 v0, v1;
 
-						if (ptCurr.Point == tris[tiCurr]) {
+						if (ptCurr.Point == tris[tiCurr]) 
+						{
 							v0 = verts[tris[tiCurr+2]] - verts[tris[tiCurr+0]];
-						} else if (ptCurr.Point == tris[tiCurr+1]) {
+						} 
+						else if (ptCurr.Point == tris[tiCurr+1]) 
+						{
 							v0 = verts[tris[tiCurr+0]] - verts[tris[tiCurr+1]];
-						} else {
+						}
+						else 
+						{
 							Debug.Assert(ptCurr.Point == tris[tiCurr+2]);
 							v0 = verts[tris[tiCurr+1]] - verts[tris[tiCurr+2]];
 						}
 
-						if (ptNext.Point == tris[tiNext]) {
+						if (ptNext.Point == tris[tiNext]) 
+						{
 							v1 = verts[tris[tiNext+0]] - verts[tris[tiNext+1]];
-						} else if (ptNext.Point == tris[tiNext+1]) {
+						} else if (ptNext.Point == tris[tiNext+1]) 
+						{
 							v1 = verts[tris[tiNext+1]] - verts[tris[tiNext+2]];
-						} else {
+						} else 
+						{
 							Debug.Assert(ptNext.Point == tris[tiNext+2]);
 							v1 = verts[tris[tiNext+2]] - verts[tris[tiNext+0]];
 						}
@@ -212,8 +231,11 @@ namespace GK {
 							-1,
 							Geom.RotateRightAngle(v1)
 						));
-					} else {
-						if (!Geom.AreCoincident(centers[tiCurr/3], centers[tiNext/3])) {
+					} 
+					else 
+					{
+						if (!Geom.AreCoincident(centers[tiCurr/3], centers[tiNext/3])) 
+						{
 							edges.Add(new VoronoiDiagram.Edge(
 								VoronoiDiagram.EdgeType.Segment,
 								ptCurr.Point,

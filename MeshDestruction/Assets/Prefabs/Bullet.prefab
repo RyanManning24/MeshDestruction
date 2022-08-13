@@ -142,5 +142,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sphereCollider: {fileID: -1373277663477096743}
   _forceAppliedToCut: 10
-  horizontalCut: 0
+  horizontalCut: 1
   simpleCut: 0
