@@ -22,6 +22,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace GK {
@@ -111,18 +112,18 @@ namespace GK {
 			return mean + stddev * randStdNormal;
 		}
 
-		public void Break(Vector2 position) {
+		public async void Break(Vector2 position) {
 			var area = Area;
 			if (area > MinBreakArea) 
 			{
 				var calc = new VoronoiCalculator();
 				var clip = new VoronoiClipper();
-
+				//async sites
 				var sites = new Vector2[10];
 
-				for (int i = 0; i < sites.Length; i++) 
+				for (int i = 0; i < sites.Length; i++)
 				{
-					var dist = Mathf.Abs(NormalizedRandom(0.5f, 1.0f/2.0f));
+					var dist = Mathf.Abs(NormalizedRandom(0.5f, 1.0f / 2.0f));
 					var angle = 2.0f * Mathf.PI * Random.value;
 
 					sites[i] = position + new Vector2(
@@ -130,7 +131,13 @@ namespace GK {
 							dist * Mathf.Sin(angle));
 				}
 
-				var diagram = calc.CalculateDiagram(sites);
+				VoronoiDiagram diagram = null;
+
+				var result = await Task.Run(() =>
+				{
+					diagram = calc.CalculateDiagram(sites);
+					return diagram;
+				});
 
 				var clipped = new List<Vector2>();
 
