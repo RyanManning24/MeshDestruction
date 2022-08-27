@@ -50,42 +50,55 @@ namespace GK {
 
 			int firstEdge, lastEdge;
 			
-			if (site == diag.Sites.Count - 1) {
+			if (site == diag.Sites.Count - 1) 
+			{
 				firstEdge = diag.FirstEdgeBySite[site];
 				lastEdge = diag.Edges.Count - 1;
-			} else {
+			} 
+			else
+			{
 				firstEdge = diag.FirstEdgeBySite[site];
 				lastEdge = diag.FirstEdgeBySite[site + 1] - 1;
 			}
 
-			for (int ei = firstEdge; ei <= lastEdge; ei++) {
+			for (int ei = firstEdge; ei <= lastEdge; ei++)
+			{
 				pointsOut.Clear();
 
 				var edge = diag.Edges[ei];
 
 				Vector2 lp, ld;
 
-				if (edge.Type == VoronoiDiagram.EdgeType.RayCCW || edge.Type == VoronoiDiagram.EdgeType.RayCW) {
+				if (edge.Type == VoronoiDiagram.EdgeType.RayCCW || edge.Type == VoronoiDiagram.EdgeType.RayCW) 
+				{
 					lp = diag.Vertices[edge.Vert0];
 					ld = edge.Direction;
 
-					if (edge.Type == VoronoiDiagram.EdgeType.RayCW) {
+					if (edge.Type == VoronoiDiagram.EdgeType.RayCW) 
+					{
 						ld *= -1;
 					}
-				} else if (edge.Type == VoronoiDiagram.EdgeType.Segment) {
+				}
+				else if (edge.Type == VoronoiDiagram.EdgeType.Segment) 
+				{
 					var lp0 = diag.Vertices[edge.Vert0];
 					var lp1 = diag.Vertices[edge.Vert1];
 
 					lp = lp0;
 					ld = lp1 - lp0;
-				} else if (edge.Type == VoronoiDiagram.EdgeType.Line) {
+				} 
+				else if (edge.Type == VoronoiDiagram.EdgeType.Line) 
+				{
 					throw new NotSupportedException("Haven't implemented voronoi halfplanes yet");
-				} else {
+				}
+				else
+				{
 					Debug.Assert(false);
 					return;
 				}
 
-				for (int pi0 = 0; pi0 < pointsIn.Count; pi0++) {
+				for (int pi0 = 0; pi0 < pointsIn.Count; pi0++) 
+				{
 					var pi1 = pi0 == pointsIn.Count - 1 ? 0 : pi0 + 1;
 
 					var p0 = pointsIn[pi0];
@@ -94,11 +107,16 @@ namespace GK {
 					var p0Inside = Geom.ToTheLeft(p0, lp, lp + ld);
 					var p1Inside = Geom.ToTheLeft(p1, lp, lp + ld);
 
-					if (p0Inside && p1Inside) {
+					if (p0Inside && p1Inside) 
+					{
 						pointsOut.Add(p1);
-					} else if (!p0Inside && !p1Inside) {
+					}
+					else if (!p0Inside && !p1Inside)
+					{
 						// Do nothing, both are outside
-					} else {
+					} 
+					else 
+					{
 						var intersection = Geom.LineLineIntersection(lp, ld.normalized, p0, (p1 - p0).normalized);
 
 						if (p0Inside) {

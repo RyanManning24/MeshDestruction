@@ -113,13 +113,15 @@ namespace GK {
 
 		public void Break(Vector2 position) {
 			var area = Area;
-			if (area > MinBreakArea) {
+			if (area > MinBreakArea) 
+			{
 				var calc = new VoronoiCalculator();
 				var clip = new VoronoiClipper();
 
 				var sites = new Vector2[10];
 
-				for (int i = 0; i < sites.Length; i++) {
+				for (int i = 0; i < sites.Length; i++) 
+				{
 					var dist = Mathf.Abs(NormalizedRandom(0.5f, 1.0f/2.0f));
 					var angle = 2.0f * Mathf.PI * Random.value;
 
@@ -132,10 +134,12 @@ namespace GK {
 
 				var clipped = new List<Vector2>();
 
-				for (int i = 0; i < sites.Length; i++) {
+				for (int i = 0; i < sites.Length; i++) 
+				{
 					clip.ClipSite(diagram, Polygon, i, ref clipped);
 
-					if (clipped.Count > 0) {
+					if (clipped.Count > 0)
+					{
 						var newGo = Instantiate(gameObject, transform.parent);
 
 						newGo.transform.localPosition = transform.localPosition;
@@ -204,19 +208,22 @@ namespace GK {
 			}
 
 
-			for (int vert = 2; vert < count; vert++) {
+			for (int vert = 2; vert < count; vert++)
+			{
 				tris[ti++] = 0;
 				tris[ti++] = vert - 1;
 				tris[ti++] = vert;
 			}
 
-			for (int vert = 2; vert < count; vert++) {
+			for (int vert = 2; vert < count; vert++) 
+			{
 				tris[ti++] = count;
 				tris[ti++] = count + vert;
 				tris[ti++] = count + vert - 1;
 			}
 
-			for (int vert = 0; vert < count; vert++) {
+			for (int vert = 0; vert < count; vert++) 
+			{
 				var si = 2*count + 4*vert;
 
 				tris[ti++] = si;

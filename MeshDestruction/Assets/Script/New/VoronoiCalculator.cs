@@ -23,6 +23,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Profiling;
 
@@ -45,10 +46,11 @@ namespace GK {
 		/// <summary>
 		/// Calculate a voronoi diagram and return it. 
 		/// </summary>
-		public VoronoiDiagram CalculateDiagram(IList<Vector2> inputVertices) {
+		public VoronoiDiagram CalculateDiagram(IList<Vector2> inputVertices) 
+		{
 			VoronoiDiagram result = null;
 			CalculateDiagram(inputVertices, ref result);
-			return result;
+		    return result;
 		}
 
 		/// <summary>
@@ -80,7 +82,7 @@ namespace GK {
 			Profiler.EndSample();
 
 			pts.Clear();
-
+			
 			var verts = trig.Vertices;
 			var tris = trig.Triangles;
 			var centers = result.Vertices;
@@ -91,17 +93,17 @@ namespace GK {
 			if (tris.Count > edges.Capacity) { edges.Capacity = tris.Count; }
 
 
-			for (int ti = 0; ti < tris.Count; ti+=3) {
+			for (int ti = 0; ti < tris.Count; ti += 3)
+			{
 				var p0 = verts[tris[ti]];
-				var p1 = verts[tris[ti+1]];
-				var p2 = verts[tris[ti+2]];
+				var p1 = verts[tris[ti + 1]];
+				var p2 = verts[tris[ti + 2]];
 
 				// Triangle is in CCW order
 				Debug.Assert(Geom.ToTheLeft(p2, p0, p1));
 
 				centers.Add(Geom.CircumcircleCenter(p0, p1, p2));
 			}
-
 
 			for (int ti = 0; ti < tris.Count; ti+=3) {
 				pts.Add(new PointTriangle(tris[ti],   ti));
